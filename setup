@@ -1,0 +1,50 @@
+
+main() {
+
+if [[ -z "$1"  ]]; then
+  echo 'Specify language'
+else
+  language="$1"
+
+  case $language in 
+
+  go)
+  dockerimage="golang"
+  language="go"
+  ;;
+
+  js)
+  dockerimage="node:latest"
+  language="js"
+  ;;
+
+esac
+  
+fi
+
+  rm Dockerfile
+  touch Dockerfile
+  echo "FROM ${dockerimage}" >> Dockerfile
+  echo "WORKDIR /code" >> Dockerfile
+
+  copyfiles
+  
+  docker build -t "${language}-sandbox" .
+  docker run --name "${language}-proj" -it -v $(pwd):/code "${language}-sandbox" bash
+
+  touch config
+  echo ${language} > config
+
+}
+
+copyfiles() {
+
+  git clone https://github.com/mskramst/scaffold.git
+  cd scaffold/${language}
+  copy *.* ../../
+  cd ../../
+  rm -rf scaffold
+
+}
+
+main "$@"
