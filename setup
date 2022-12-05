@@ -39,12 +39,15 @@ fi
 
 copyfiles() {
 
+  mkdir ${language}
+  cd ${language}
   git clone https://github.com/mskramst/scaffold.git
   cd scaffold/${language}
-  copy *.* ../../
-  cd ../../
+  cp -r src ../../
+  cp *.* ../../
+  cd ../..
   rm -rf scaffold
-
+  cd ..
 }
 
 main "$@"
