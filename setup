@@ -1,8 +1,8 @@
+#!/bin/bash 
 
 main() {
 
-if [[ -z "$1"  ]]; then
-  echo 'Specify language'
+if [[ -z "$1"  ]]; then echo 'Specify language'
 else
   language="$1"
 
@@ -28,6 +28,11 @@ else
   language="java"
   ;;
 
+  py) 
+  dockerimage="python:3.9"
+  language="python"
+  ;;
+
 esac
 
   rm Dockerfile
@@ -38,7 +43,7 @@ esac
   copyfiles
   
   docker build -t "${language}-sandbox" .
-  docker run --name "${language}-proj" -e "containername=${language}-proj" -it -v $(pwd):/code "${language}-sandbox" bash
+  docker run --name "${language}-proj" -e "containername=${language}-proj" -it -v "$(pwd):/code" "${language}-sandbox" bash
 
   touch config
   echo ${language} > config
@@ -48,17 +53,18 @@ fi
 }
 
 copyfiles() {
-
-  mkdir ${language}
-  cd ${language}
-  git clone https://github.com/mskramst/scaffold.git
-  cp scaffold/docker_prompt ..
-  cd scaffold/${language}
-  cp -r src ../../
-  cp * ../../
+  (
+    mkdir ${language}
+    cd ${language} || exit
+    git clone https://github.com/mskramst/scaffold.git
+    cd scaffold/${language} || exit
+    cp -r src ../../
+    cp ./* -r ../../
+  )
+  (
   cd ../..
   rm -rf scaffold
-  cd ..
+  )
 }
 
 main "$@"

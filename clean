@@ -1,3 +1,4 @@
+#!/bin/bash 
 
 if [[ -f Dockerfile ]]; then
 
@@ -6,19 +7,19 @@ if [[ -f Dockerfile ]]; then
       language="$line"
   done < "$file"
 
-  if [ $( docker ps -a | grep ${language}-proj | wc -l ) -gt 0 ]; then
+  if [ "$( docker ps -a | grep -c "${language}-proj" )" -gt 0 ]; then
     echo "removing ..."
     #these two lines of code will remove the code folder (USE with CAUTION)
     #uncommenting them can result of you losing your code on ./clean
     #docker start ${language}-proj
     #docker exec ${language}-proj rm -rf $language
-    docker stop ${language}-proj && docker rm ${language}-proj 
+    docker stop "${language}-proj" && docker rm "${language}-proj" 
   else
     echo "No docker containers"
   fi
 
-  if [ $( docker images | grep ${language}-sandbox | wc -l ) -gt 0 ]; then
-    docker rmi ${language}-sandbox 
+  if [ "$( docker images | grep -c "${language}-sandbox" )" -gt 0 ]; then
+    docker rmi "${language}-sandbox"
   else
     echo "No docker images"
   fi
