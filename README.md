@@ -14,16 +14,16 @@ that language as well as some starter code as a sample.
 
 Run the setup script with language you wish to use.
 
-./setup js
-./setup kt
+  ./setup js
+  ./setup kt
 
 It will automatically download the required container and setup a volume and
 starter code to begin coding.
 
 The clean command will remove containers and images (similar to docker-compose)
-./clean
+  ./clean
 
 Currently, it does not remove the code directory, but there are two comments in
 clean that can be turned on to remove the coding folder.
 
-./docker-prompt is useful for seeing a color prompt within a container.
+  ./docker-prompt is useful for seeing a color prompt within a container.
