@@ -14,8 +14,8 @@ that language as well as some starter code as a sample.
 
 Run the setup script with language you wish to use.
 
-  ./setup js
-  ./setup kt
+>  ./setup js
+>  ./setup kt
 
 It will automatically download the required container and setup a volume and
 starter code to begin coding.
