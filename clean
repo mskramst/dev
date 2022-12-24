@@ -1,10 +1,17 @@
-file="config"
+
+if [[ -f Dockerfile ]]; then
+
+  file="config"
   while read -r line; do
       language="$line"
   done < "$file"
 
   if [ $( docker ps -a | grep ${language}-proj | wc -l ) -gt 0 ]; then
     echo "removing ..."
+    #these two lines of code will remove the code folder (USE with CAUTION)
+    #uncommenting them can result of you losing your code on ./clean
+    #docker start ${language}-proj
+    #docker exec ${language}-proj rm -rf $language
     docker stop ${language}-proj && docker rm ${language}-proj 
   else
     echo "No docker containers"
@@ -16,5 +23,10 @@ file="config"
     echo "No docker images"
   fi
 
-  rm config
 
+  rm config
+  rm Dockerfile
+
+else
+  echo 'Nothing to clean'
+fi

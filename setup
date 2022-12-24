@@ -18,9 +18,17 @@ else
   language="js"
   ;;
 
+  kt)
+  dockerimage="zenika/kotlin"
+  language="kt"
+  ;;
+
+  java)
+  dockerimage="openjdk:latest"
+  language="java"
+  ;;
+
 esac
-  
-fi
 
   rm Dockerfile
   touch Dockerfile
@@ -30,10 +38,12 @@ fi
   copyfiles
   
   docker build -t "${language}-sandbox" .
-  docker run --name "${language}-proj" -it -v $(pwd):/code "${language}-sandbox" bash
+  docker run --name "${language}-proj" -e "containername=${language}-proj" -it -v $(pwd):/code "${language}-sandbox" bash
 
   touch config
   echo ${language} > config
+
+fi
 
 }
 
@@ -42,9 +52,10 @@ copyfiles() {
   mkdir ${language}
   cd ${language}
   git clone https://github.com/mskramst/scaffold.git
+  cp scaffold/docker_prompt ..
   cd scaffold/${language}
   cp -r src ../../
-  cp *.* ../../
+  cp * ../../
   cd ../..
   rm -rf scaffold
   cd ..
