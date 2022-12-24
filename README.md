@@ -11,11 +11,11 @@ system.
 Each language has its own README file to provide necessary directions for using
 that language as well as some starter code as a sample.
 
+Current languages: javascript (js), python (py), java (java), kotlin (kt), and golang (go)
 
-Run the setup script with language you wish to use.
+Run the setup script with language you wish to use.  Use abbreviation above.
 
 >  ./setup js
->  ./setup kt
 
 It will automatically download the required container and setup a volume and
 starter code to begin coding.
