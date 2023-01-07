@@ -11,7 +11,15 @@ system.
 Each language has its own README file to provide necessary directions for using
 that language as well as some starter code as a sample.
 
-Current languages: javascript (js), python (py), java (java), kotlin (kt), and golang (go)
+Current languages: 
+* javascript (js) with Typescript
+* python (py)
+* java (java)
+* kotlin (kt)
+* golang (go)
+* rust (rust)
+* kotlin with gradle setup (larger projects)
+* java with gradle setup (larger projects)
 
 Run the setup script with language you wish to use.  Use abbreviation above.
 
