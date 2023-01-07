@@ -23,14 +23,33 @@ else
   language="kt"
   ;;
 
+  ktg)
+  dockerimage="gradle"
+  language="ktg"
+  ;;
+
   java)
   dockerimage="openjdk:latest"
   language="java"
   ;;
 
+  javag)
+  dockerimage="gradle"
+  language="javag"
+  ;;
+
   py) 
   dockerimage="python:3.9"
   language="python"
+  ;;
+
+  rust)
+  dockerimage="rust"
+  language="rust"
+  ;;
+
+  *) 
+  exit
   ;;
 
 esac

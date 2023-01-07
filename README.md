@@ -27,3 +27,8 @@ Currently, it does not remove the code directory, but there are two comments in
 clean that can be turned on to remove the coding folder.
 
   ./docker-prompt is useful for seeing a color prompt within a container.
+
+To reattach to the container
+
+You can use docker ps -a to view the containers and then docker start -ia
+lang-proj
