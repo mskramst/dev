@@ -18,8 +18,8 @@ Current languages:
 * kotlin (kt)
 * golang (go)
 * rust (rust)
-* kotlin with gradle setup (larger projects)
-* java with gradle setup (larger projects)
+* kotlin with gradle setup (larger projects) (ktg)
+* java with gradle setup (larger projects) (javag)
 
 Run the setup script with language you wish to use.  Use abbreviation above.
 
