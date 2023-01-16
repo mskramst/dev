@@ -9,43 +9,39 @@ else
   case $language in 
 
   go)
-  dockerimage="golang"
-  language="go"
+    setup "golang" "go"
   ;;
 
   js)
-  dockerimage="node:latest"
-  language="js"
+    setup "node:latest" "js"
   ;;
 
   kt)
-  dockerimage="zenika/kotlin"
-  language="kt"
+    setup "zenika/kotlin" "kt"
   ;;
 
   ktg)
-  dockerimage="gradle"
-  language="ktg"
+    setup "gradle" "ktg"
   ;;
 
   java)
-  dockerimage="openjdk:latest"
-  language="java"
+    setup "openjdk:latest" "java"
   ;;
 
   javag)
-  dockerimage="gradle"
-  language="javag"
+    setup "gradle" "javag"
   ;;
 
   py) 
-  dockerimage="python:3.9"
-  language="python"
+    setup "python:3.9" "python"
   ;;
 
   rust)
-  dockerimage="rust"
-  language="rust"
+    setup "rust" "rust"
+  ;;
+
+  jsdeno) 
+    setup "denoland/deno" "deno"
   ;;
 
   *) 
@@ -54,25 +50,33 @@ else
 
 esac
 
+
+fi
+
+}
+
+
+setup () {
+
+  dockerimage=$1
+  language=$2
   rm Dockerfile
   touch Dockerfile
   echo "FROM ${dockerimage}" >> Dockerfile
   echo "WORKDIR /code" >> Dockerfile
 
-  copyfiles
+  copyfiles ${language}
   
   docker build -t "${language}-sandbox" .
   docker run --name "${language}-proj" -e "containername=${language}-proj" -it -v "$(pwd):/code" "${language}-sandbox" bash
 
   touch config
   echo ${language} > config
-
-fi
-
 }
 
-copyfiles() {
+copyfiles () {
   (
+    language=$1
     mkdir ${language}
     cd ${language} || exit
     git clone https://github.com/mskramst/scaffold.git
