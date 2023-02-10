@@ -1,0 +1,71 @@
+main() {
+
+  if [[ -z "$1"  ]]; then echo 'Specify language'
+  else
+    language="$1"
+
+    case $language in 
+
+    go)
+      setup "golang" 
+    ;;
+
+    js)
+      setup "node:latest" 
+    ;;
+
+    kt)
+      setup "zenika/kotlin" 
+    ;;
+
+    ktg)
+      setup "gradle" 
+    ;;
+
+    java)
+      setup "openjdk:latest" 
+    ;;
+
+    javag)
+      setup "gradle" 
+    ;;
+
+    py) 
+      setup "python:3.9" 
+    ;;
+
+    rust)
+      setup "rust" 
+    ;;
+
+    jsdeno) 
+      setup "denoland/deno" 
+    ;;
+
+    lua) 
+      setup "woahbase/alpine-lua" 
+    ;;
+
+    *) 
+    exit
+    ;;
+
+  esac
+
+
+  fi
+
+}
+
+setup () {
+
+  container=$1
+  docker run --name "coding-sandbox" -it -v "$(pwd):/code" ${container} bash
+
+}
+
+main "$@"
+
+#languages to choose from
+#"golang", "node:latest", "zenika/kotlin", "gradle", "openjdk:latest",
+#"python:3.9", "rust", "denoland/deno", "woahbase/alpine-lua"
