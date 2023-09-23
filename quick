@@ -60,7 +60,7 @@ main() {
 setup () {
 
   container=$1
-  docker run --name "coding-sandbox" -it -v "$(pwd):/code" ${container} bash
+  docker run --name "coding-sandbox" -it -v "$(pwd):/code" -w /code ${container} bash
 
 }
 
