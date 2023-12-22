@@ -62,7 +62,7 @@ setup () {
   language=$2
   rm Dockerfile
   touch Dockerfile
-  echo "FROM ${dockerimage}" >> Dockerfile
+  echo "FROM docker.io/${dockerimage}" >> Dockerfile
   echo "WORKDIR /code" >> Dockerfile
 
   copyfiles ${language}
