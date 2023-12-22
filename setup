@@ -67,8 +67,8 @@ setup () {
 
   copyfiles ${language}
   
-  docker build -t "${language}-sandbox" .
-  docker run --name "${language}-proj" -e "containername=${language}-proj" -it -v "$(pwd):/code" "${language}-sandbox" bash
+  podman build -t "${language}-sandbox" .
+  podman run --name "${language}-proj" -e "containername=${language}-proj" -it -v "$(pwd):/code" "${language}-sandbox" bash
 
   touch config
   echo ${language} > config
