@@ -7,7 +7,7 @@ if [[ -f Dockerfile ]]; then
       language="$line"
   done < "$file"
 
-  if [ "$( docker ps -a | grep -c "${language}-proj" )" -gt 0 ]; then
+  if [ "$( podman ps -a | grep -c "${language}-proj" )" -gt 0 ]; then
     echo "removing ..."
     #these two lines of code will remove the code folder (USE with CAUTION)
     #uncommenting them can result of you losing your code on ./clean
@@ -18,7 +18,7 @@ if [[ -f Dockerfile ]]; then
     echo "No docker containers"
   fi
 
-  if [ "$( docker images | grep -c "${language}-sandbox" )" -gt 0 ]; then
+  if [ "$( podman images | grep -c "${language}-sandbox" )" -gt 0 ]; then
     podman rmi "${language}-sandbox"
   else
     echo "No docker images"
