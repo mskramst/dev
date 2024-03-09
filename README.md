@@ -18,6 +18,8 @@ Current languages:
 * kotlin (kt)
 * golang (go)
 * rust (rust)
+* c (c) 
+* cpp (c++)
 * kotlin with gradle setup (larger projects) (ktg)
 * java with gradle setup (larger projects) (javag)
 

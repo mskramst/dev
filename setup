@@ -44,6 +44,10 @@ else
     setup "denoland/deno" "deno"
   ;;
 
+  cpp) 
+    setup "gcc:latest" "cpp"
+  ;;
+
   c) 
     setup "gcc:latest" "c"
   ;;
@@ -53,7 +57,6 @@ else
   ;;
 
 esac
-
 
 fi
 
@@ -68,12 +71,16 @@ setup () {
   touch Dockerfile
   echo "FROM docker.io/${dockerimage}" >> Dockerfile
   echo "WORKDIR /code" >> Dockerfile
+  echo "RUN 'cat docker-prompt >> ~/.bashrc'"
+  #echo "RUN echo \"PS1='\n[ \u@docker \w ]\ndonkey$ '\" >>.bashrc" >> Dockerfile
+# echo "RUN gcc /code/hello.c" >> Dockerfile
 
   copyfiles ${language}
   
   podman build -t "${language}-sandbox" .
-  podman run --name "${language}-proj" -e "containername=${language}-proj" \
-    -it -v "$(pwd):/code" "${language}-sandbox" bash 
+  podman run -dit --name "${language}-proj" -e "containername=${language}-proj" \
+    -v "$(pwd):/code" "${language}-sandbox" bash 
+  podman exec -it "${language}-proj" bash -c "cat docker-prompt >> ~/.bashrc && bash"
 
   touch config
   echo ${language} > config
@@ -90,7 +97,7 @@ copyfiles () {
     cp ./* -r ../../
   )
   (
-  cd ../..
+  cd ${language}
   rm -rf scaffold
   )
 }
