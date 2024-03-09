@@ -88,13 +88,18 @@ setup () {
 
 copyfiles () {
   (
-    language=$1
-    mkdir ${language}
-    cd ${language} || exit
-    git clone https://github.com/mskramst/scaffold.git
-    cd scaffold/${language} || exit
+  language=$1
+  mkdir ${language}
+  cd ${language} || exit
+  git clone https://github.com/mskramst/scaffold.git
+  cd scaffold/${language} || exit
+
+  if [ -d "src" ]; then
     cp -r src ../../
-    cp ./* -r ../../
+  fi
+
+  cp ./* -r ../../
+
   )
   (
   cd ${language}
