@@ -1,0 +1,22 @@
+{
+  "name": "New Typescript Project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start:build": "tsc -w",
+    "start:run": "nodemon build/index.js",
+    "start": "concurrently npm:start:*",
+    "test": "jest --coverage"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/jest": "^27.0.3",
+    "concurrently": "^6.5.1",
+    "jest": "^27.4.5",
+    "nodemon": "^2.0.15",
+    "ts-jest": "^27.1.2"
+  },
+}

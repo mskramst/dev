@@ -67,13 +67,15 @@ setup () {
 
   dockerimage=$1
   language=$2
-  rm Dockerfile
+ 
+  if [ -f "Dockerfile" ]; then
+    rm Dockerfile
+  fi
+
   touch Dockerfile
   echo "FROM docker.io/${dockerimage}" >> Dockerfile
   echo "WORKDIR /code" >> Dockerfile
   echo "RUN 'cat docker-prompt >> ~/.bashrc'"
-  #echo "RUN echo \"PS1='\n[ \u@docker \w ]\ndonkey$ '\" >>.bashrc" >> Dockerfile
-# echo "RUN gcc /code/hello.c" >> Dockerfile
 
   copyfiles ${language}
   
@@ -90,20 +92,17 @@ copyfiles () {
   (
   language=$1
   mkdir ${language}
-  cd ${language} || exit
-  git clone https://github.com/mskramst/scaffold.git
   cd scaffold/${language} || exit
 
   if [ -d "src" ]; then
-    cp -r src ../../
+    cp -r src ../../${language}
   fi
 
-  cp ./* -r ../../
+  cp ./* -r ../../${language}
 
   )
   (
   cd ${language}
-  rm -rf scaffold
   )
 }
 
